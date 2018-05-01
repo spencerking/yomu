@@ -1,4 +1,4 @@
-# translate.rb
+# yomu 
 A simple translation tool written in Ruby. You will be able to take a screenshot and view the translated output immediately in your terminal.
 
 ## Dependencies
