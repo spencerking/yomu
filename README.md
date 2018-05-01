@@ -10,6 +10,5 @@ A simple translation tool written in Ruby. You will be able to take a screenshot
 * terminal-notifier
 
 ## TODO
-* Screenshot integration
-* Translation
-* Some sort of configuration for setting languages
+* Configuration tool/file
+* Autodetect languages
