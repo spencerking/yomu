@@ -7,6 +7,7 @@ A simple translation tool written in Ruby. You will be able to take a screenshot
 * ImageMagick
 * rtesseract
 * mini_magick
+* terminal-notifier
 
 ## TODO
 * Screenshot integration

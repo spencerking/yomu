@@ -1,4 +1,5 @@
 require 'RTesseract'
+require 'terminal-notifier'
 require 'net/http'
 require 'json'
 require 'cgi'
@@ -31,10 +32,8 @@ parsed_json = JSON.parse(response)
 translation = parsed_json[0].to_s.split(",")[0]
 translation = translation.gsub(/"|\[/, '')
 
-puts sourceText
-puts translation
+# puts sourceText
+# puts translation
 
-# TODO AppleScript can get very confused based on the results from Google Translate
-# Use AppleScript to output a notification
-# cmd = %Q[osascript -e 'display notification "] + translation + %Q[" with title "Title"']
-# system(cmd)
+# Create a notification
+TerminalNotifier.notify(translation, :title => 'yomu')
