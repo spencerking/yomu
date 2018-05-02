@@ -1,12 +1,13 @@
 require 'RTesseract'
 require 'terminal-notifier'
+require 'cld'
 require 'net/http'
 require 'json'
 require 'cgi'
 
 # Configuration
 # SCREENSHOT_DIR = ENV['HOME'] + 
-LANG = "jpn"
+LANG = "jpn+fra"
 PROCESSOR = "mini_magick"
 
 # Get the date for the screenshot name
@@ -20,16 +21,8 @@ system(cmd)
 image = RTesseract.new(img.to_s, :lang => LANG, :processor => PROCESSOR)
  
 # Translate
-case LANG
-	when "fra"
-		sourceLang = "fr"
-	when "jpn"
-		sourceLang = "ja"
-	else
-		puts "Error unknown language"
-		exit
-end
-
+detectLang = CLD.detect_language(image.to_s)
+sourceLang = detectLang[:code]
 targetLang = "en"
 sourceText = image.to_s
 
