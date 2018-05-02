@@ -5,7 +5,7 @@ require 'json'
 require 'cgi'
 
 # Configuration
-SCREENSHOT_DIR = ENV['HOME']
+# SCREENSHOT_DIR = ENV['HOME'] + 
 LANG = "jpn"
 PROCESSOR = "mini_magick"
 
@@ -17,10 +17,19 @@ cmd = "screencapture -o -i " + img.to_s
 system(cmd)
 
 # Process the image
-image = RTesseract.new(img.to_s, :lang => "jpn", :processor => "mini_magick")
+image = RTesseract.new(img.to_s, :lang => LANG, :processor => PROCESSOR)
  
 # Translate
-sourceLang = "ja"
+case LANG
+	when "fra"
+		sourceLang = "fr"
+	when "jpn"
+		sourceLang = "ja"
+	else
+		puts "Error unknown language"
+		exit
+end
+
 targetLang = "en"
 sourceText = image.to_s
 
@@ -32,8 +41,8 @@ parsed_json = JSON.parse(response)
 translation = parsed_json[0].to_s.split(",")[0]
 translation = translation.gsub(/"|\[/, '')
 
-# puts sourceText
-# puts translation
+puts sourceText
+puts translation
 
 # Create a notification
 TerminalNotifier.notify(translation, :title => 'yomu')
