@@ -6,7 +6,7 @@ require 'json'
 require 'cgi'
 
 # Configuration
-# SCREENSHOT_DIR = ENV['HOME'] + 
+# SCREENSHOT_DIR = ENV['HOME'] +
 LANG = "jpn+fra"
 PROCESSOR = "mini_magick"
 
@@ -19,7 +19,7 @@ system(cmd)
 
 # Process the image
 image = RTesseract.new(img.to_s, :lang => LANG, :processor => PROCESSOR)
- 
+
 # Translate
 detectLang = CLD.detect_language(image.to_s)
 sourceLang = detectLang[:code]
@@ -34,8 +34,10 @@ parsed_json = JSON.parse(response)
 translation = parsed_json[0].to_s.split(",")[0]
 translation = translation.gsub(/"|\[/, '')
 
-puts sourceText
-puts translation
+puts "Source: \n" + sourceText
+puts "Translation: \n" + translation
 
-# Create a notification
-TerminalNotifier.notify(translation, :title => 'yomu')
+if ARGV[0] == "n"
+  # Create a notification
+  TerminalNotifier.notify(translation, :title => 'yomu')
+end
